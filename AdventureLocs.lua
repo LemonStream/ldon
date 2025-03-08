@@ -4,7 +4,7 @@ return {
 			['y'] = 445.40999999999997,
 			['x'] = 652.53,
 			['z'] = -113.49,
-            ['pull'] = true,
+			['pull'] = true,
 		},
 		[2] = {
 			['y'] = 303.66999999999996,
@@ -30,7 +30,7 @@ return {
 			['y'] = 17.819999999999997,
 			['x'] = 581,
 			['z'] = -53.989999999999995,
-            ['pull'] = true,
+			['pull'] = true,
 		},
 		[7] = {
 			['y'] = -17.84,
@@ -51,49 +51,49 @@ return {
 			['y'] = -205.22,
 			['x'] = 490.07,
 			['z'] = -114.49,
-            ['pull'] = true,
+			['pull'] = true,
 		},
 		[11] = {
 			['y'] = -222.94,
 			['x'] = 485.19,
 			['z'] = -114.49,
-            ['pull'] = true,
+			['pull'] = true,
 		},
 		[12] = {
 			['y'] = -267.85999999999996,
 			['x'] = 474.72999999999985,
 			['z'] = -126.49,
-            ['no_kill'] = true,
+			['no_kill'] = true,
 		},
 		[13] = {
 			['y'] = -365,
 			['x'] = 454.14,
 			['z'] = -122.61999999999998,
-            ['no_kill'] = true,
+			['no_kill'] = true,
 		},
 		[14] = {
 			['y'] = -360.08,
 			['x'] = 413.26,
 			['z'] = -122.61999999999998,
-            ['no_kill'] = true,
+			['no_kill'] = true,
 		},
 		[15] = {
 			['y'] = -319.21,
 			['x'] = 412.7399999999999,
 			['z'] = -119.61999999999998,
-            ['no_kill'] = true,
+			['no_kill'] = true,
 		},
 		[16] = {
 			['y'] = -318.21999999999986,
 			['x'] = 400.66999999999996,
 			['z'] = -115.61999999999998,
-            ['no_kill'] = true,
+			['no_kill'] = true,
 		},
 		[17] = {
 			['y'] = -348.4899999999999,
 			['x'] = 368.46,
 			['z'] = -115.61999999999998,
-            ['pull'] = true,
+			['pull'] = true,
 		},
 		[18] = {
 			['y'] = -364.82,
@@ -109,7 +109,7 @@ return {
 			['y'] = -276.91999999999996,
 			['x'] = 190.45,
 			['z'] = -113.36999999999998,
-            ['no_prep'] = true,
+			['no_prep'] = true,
 		},
 		[21] = {
 			['y'] = -364.40999999999997,
@@ -120,143 +120,238 @@ return {
 			['y'] = -231.72,
 			['x'] = 256.65,
 			['z'] = -113.86999999999998,
+			['no_prep'] = true,
 		},
 		[23] = {
+			['y'] = -181.24,
+			['x'] = 268.54,
+			['z'] = -114.81,
+		},
+		[24] = {
 			['y'] = -198.76999999999992,
 			['x'] = 272.21999999999986,
 			['z'] = -113.86999999999998,
 		},
-		[24] = {
+		[25] = {
 			['y'] = -160.98999999999992,
 			['x'] = 255.83999999999995,
 			['z'] = -113.86999999999998,
             ['pull'] = true,
 		},
-		[25] = {
+		[26] = {
 			['y'] = -96.55999999999999,
 			['x'] = 160.67999999999998,
 			['z'] = -113.36999999999998,
 		},
-		[26] = {
+		[27] = {
 			['y'] = -177.35,
 			['x'] = 161.2,
 			['z'] = -113.36999999999998,
 		},
-		[27] = {
-			['y'] = 23.659999999999997,
-			['x'] = 404.2899999999999,
-			['z'] = -53.87,
-            ['pull'] = true,
-		},
 		[28] = {
+			['y'] = -36.22,
+			['x'] = 454.76,
+			['z'] = -53.49,
+		},		
+		[29] = {
+			['y'] = 48.51,
+			['x'] = 340.96,
+			['z'] = -53.87,
+		},
+		[30] = {
 			['y'] = 104.85,
 			['x'] = 274.2,
 			['z'] = -53.309999999999995,
 		},
-		[29] = {
+		[31] = {
 			['y'] = -0.73,
 			['x'] = 233.67999999999998,
 			['z'] = 1.5899999999999999,
 		},
-		[30] = {
+		[32] = {
 			['y'] = 51.47,
 			['x'] = 192.57999999999998,
 			['z'] = 6.119999999999999,
 		},
-		[31] = {
+		[33] = {
 			['y'] = 24.97,
 			['x'] = 160.73999999999998,
 			['z'] = 6.119999999999999,
 		},
-		[32] = {
+		[34] = {
 			['y'] = -48.099999999999994,
 			['x'] = 147.57999999999998,
 			['z'] = 6.619999999999999,
 		},
-		[33] = {
+		[35] = {
 			['y'] = -17.24,
 			['x'] = 106.89999999999999,
 			['z'] = 7.619999999999999,
 		},
-		[34] = {
+		[36] = {
 			['y'] = -62.65,
 			['x'] = 88.94,
 			['z'] = 6.619999999999999,
 		},
-		[35] = {
+		[37] = {
 			['y'] = -65.27,
 			['x'] = 40.599999999999994,
 			['z'] = 6.619999999999999,
 		},
-		[36] = {
+		[38] = {
 			['y'] = 46.8,
 			['x'] = 73.14999999999999,
 			['z'] = 6.119999999999999,
 		},
-		[37] = {
+		[39] = {
 			['y'] = -123.49,
 			['x'] = 109.94,
 			['z'] = 9.62,
 		},
-		[38] = {
+		[40] = {
 			['y'] = -164.23,
 			['x'] = -86.55999999999999,
 			['z'] = 67.11999999999999,
 		},
-		[39] = {
+		[41] = {
 			['y'] = -256.03,
 			['x'] = -36.69,
 			['z'] = 66.11999999999999,
 		},
-		[40] = {
+		[42] = {
 			['y'] = -294.02,
 			['x'] = -35.06999999999999,
 			['z'] = 66.11999999999999,
 		},
-		[41] = {
+		[43] = {
 			['y'] = -151.5,
 			['x'] = -197.25,
 			['z'] = 65.61999999999999,
 		},
-		[42] = {
+		[44] = {
 			['y'] = -193.52999999999997,
 			['x'] = -219.51999999999998,
 			['z'] = 65.61999999999999,
 		},
-		[43] = {
+		[45] = {
 			['y'] = -107.91999999999999,
 			['x'] = -265.72999999999996,
 			['z'] = 65.5,
 		},
-		[44] = {
+		[46] = {
 			['y'] = -61.849999999999994,
 			['x'] = -297.84,
 			['z'] = 66.5,
 		},
-		[45] = {
+		[47] = {
 			['y'] = -58.9,
 			['x'] = -260.08,
 			['z'] = 66,
 		},
-		[46] = {
+		[48] = {
 			['y'] = -23.56,
 			['x'] = -266.94,
 			['z'] = 66,
 		},
-		[47] = {
+		[49] = {
 			['y'] = 19.08,
 			['x'] = -298.09,
 			['z'] = 65.5,
 		},
-		[48] = {
+		[50] = {
 			['y'] = 49.63999999999999,
 			['x'] = -298.21,
 			['z'] = 66,
 		},
-		[49] = {
+		[51] = {
 			['y'] = 548.5,
 			['x'] = 641.88,
 			['z'] = -88.36999999999999,
 		},
 	},
 }
+
+
+
+
+
+--[[
+mq = require('mq')
+
+local Adventure_Locs = loadfile(mq.configDir .. "/AdventureLocs.lua")() or {}
+
+-- Function to save the table to a file
+local function saveAdventureLocs()
+    local path = mq.configDir .. "/AdventureLocs.lua"
+    mq.pickle(path, Adventure_Locs)
+end
+
+function Event_OnLocationCaptured(line, y, x, z)
+    local zone = mq.TLO.Zone.ShortName()
+    
+    -- Initialize table if it doesn't exist
+
+    if not Adventure_Locs[zone] then
+        Adventure_Locs[zone] =  {}
+    end
+
+    -- Add location to the table
+    table.insert(Adventure_Locs[zone], {y = tonumber(y), x = tonumber(x), z = tonumber(z)})
+
+    print(string.format("\agLocation recorded in %s: Y=%s, X=%s, Z=%s", zone, y, x, z))
+    
+    -- Save the table after adding a new entry
+    saveAdventureLocs()
+end
+
+mq.event("OnLocationCaptured", "#*#Your Location is #1#, #2#, #3#,#*#", Event_OnLocationCaptured)
+
+-- Function to record location
+local function recordLocation()
+    print("\agCapturing current location...")
+    mq.cmd("/loc")  -- This triggers the event to capture the coordinates
+end
+
+-- Bind command for easy use
+mq.bind("/recordloc", recordLocation)
+
+print("\agAdventure Location Recorder Loaded. Use /recordloc to save your current location.")
+
+while true do
+    mq.delay(500)
+    mq.doevents()
+end
+
+
+local imgui = require('imgui')
+
+local function visualizeLocations()
+	local zone = mq.TLO.Zone.ShortName()
+	if not Adventure_Locs[zone] then
+		print("No locations recorded for this zone.")
+		return
+	end
+
+	imgui.Begin("Adventure Locations")
+
+	if imgui.Button("Add New Location") then
+		local y, x, z = mq.TLO.Me.Y(), mq.TLO.Me.X(), mq.TLO.Me.Z()
+		table.insert(Adventure_Locs[zone], {y = y, x = x, z = z})
+		saveAdventureLocs()
+	end
+
+	imgui.Separator()
+
+	for i, loc in ipairs(Adventure_Locs[zone]) do
+		imgui.Text(string.format("Location %d: Y=%.2f, X=%.2f, Z=%.2f", i, loc.y, loc.x, loc.z))
+		if imgui.Button("Remove##" .. i) then
+			table.remove(Adventure_Locs[zone], i)
+			saveAdventureLocs()
+		end
+	end
+
+	imgui.End()
+end
+
+mq.imgui("AdventureLocations", visualizeLocations)
+]]--

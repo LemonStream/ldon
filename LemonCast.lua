@@ -77,6 +77,7 @@ function Cast.Ability(ability)
 end
 
 function Cast.Disc(disc)
+    mq.cmdf('/disc %s',disc)
 end
 
 function Cast.AA(aa,isheal)--Type 1-6. Don't know what the issue is. Note about 5 for some reason
