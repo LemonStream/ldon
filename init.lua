@@ -25,7 +25,7 @@ local PullAbility = PullAbilityTable[mq.TLO.Me.Class.ShortName()].spell
 local PullType = PullAbilityTable[mq.TLO.Me.Class.ShortName()].type
 
 local recruiters = {
-    ['northro'] = { name = "Escon Quickbow" },
+    ['nro'] = { name = "Escon Quickbow" },
     ['commonlands'] = { name = "Periac Windfell" },
     ['butcherblock'] = { name = "Xyzelauna TuValzir" },
     ['everfrost'] = { name = "Mannis McGuyett" },
@@ -81,7 +81,7 @@ end
 function FindTask()
     local Recruiter
 
-    if currentZone == 'northro' then
+    if currentZone == 'nro' then
         Recruiter = "Escon Quickbow"
     elseif currentZone == 'commonlands' then
         Recruiter = "Periac Windfell"
@@ -124,7 +124,44 @@ function FindTask()
     elseif mq.TLO.Window("AdventureRequestWnd").Child("AdvRqst_NPCText").Text():find("number of adventures") then
         Write.Error('Not available yet, looping after 1 minute')
         mq.delay(60000)
-        FindTask()
+        GetTask()
+    end
+end
+
+function PickZoneEntrance()
+    local zoneName = mq.TLO.Zone.ShortName()
+    if zoneName == 'nro' then
+        MoveToEntrancenro()
+    elseif zoneName == 'everfrost' then
+        MoveToEntranceEverfrost()
+    end
+end
+
+function MoveToEntrancenro()
+    local zoneID = mq.TLO.Zone.ID()
+    local zone_name = mq.TLO.Zone.ShortName()
+    local enterTimeLeft = advWnd("AdvRqst_EnterTimeLeftLabel").Text():len()
+    local completeTimeLeft = advWnd("AdvRqst_CompleteTimeLeftLabel").Text():len()
+    local npcText = advWnd("AdvRqst_NPCText").Text()
+    mq.delay(1000)
+    Write.Debug('Finding which one it is: %s %s %s ',zone_name,enterTimeLeft,completeTimeLeft)
+    if (zone_name == 'nro' and enterTimeLeft > 0 and completeTimeLeft == 0) or (zone_name == 'nro' and enterTimeLeft == 0 and completeTimeLeft > 0) then
+        Write.Debug(mq.TLO.Zone.ShortName() .. " vs nro: " .. zone_name)
+        -- getoutalive61
+        if (npcText:find("quicksand pit in Northern Ro") and (enterTimeLeft > 0 or completeTimeLeft > 0)) then
+            mq.cmd("/dgge /nav loc -955.08, 127.36, -61.98")
+            mq.cmd("/nav loc -955.08, 127.36, -61.98")
+            while not WaitToArrive(-955.08, 127.36, -61.98,12) do
+                mq.delay(5000)
+                mq.cmd("/dgge /nav loc -955.08, 127.36, -61.98")
+            mq.cmd("/nav loc -955.08, 127.36, -61.98")
+            end
+            Write.Info("Everyone is here. Going in to task...")
+            mq.cmd("/dgge /removelev")
+            GetIntoAdventure('nro')
+            Write.Debug('Made it in')
+        end
+        
     end
 end
 
@@ -227,6 +264,27 @@ function GetIntoAdventure(adventureName)
             mq.cmd("/keypress back")
             mq.cmd("/doortarget")
             mq.delay(2000)
+            mq.cmd("/click left door")
+        end
+    end
+    if adventureName == 'nro' then
+        Write.Debug('Trying to get into the mine')
+        mq.cmd("/dgge /doortarget ")
+        mq.delay(2000)
+        mq.cmd("/dgge /click left door")
+        mq.cmd("/removelev")
+        mq.cmd("/doortarget ")
+        mq.delay(2000)
+        mq.cmd("/click left door")
+        while not WaitToZone() do
+            Write.Debug('Trying again')
+            mq.cmd("/dgge /doortarget ")
+            mq.delay(2000)
+            mq.cmd("/dgge /click left door")
+            mq.cmd("/removelev")
+            mq.cmd("/doortarget ")
+            mq.delay(2000)
+            mq.cmd('/dgga /nav door')
             mq.cmd("/click left door")
         end
     end
@@ -386,7 +444,7 @@ end
 
 while run do
     GetAdventureStatus()--Includes GetTask, findtask
-    MoveToEntranceEverfrost() --Need to make dynamic**
+    PickZoneEntrance() --Need to make dynamic**
     Adventure()
     mq.delay(10000)
 end
