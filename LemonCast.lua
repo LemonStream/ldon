@@ -119,9 +119,9 @@ function Cast.HaveSpell(spell,type)
     local haveIt = false
     if type == 'ability' and mq.TLO.Me.Skill(spell)() > 0 then haveIt = true elseif
         type == 'spell' and mq.TLO.Me.Book(spell)()then haveIt = true elseif --Need to account for Rk? Or always strip? Will always stripping cause issues?
-        type == 'aa' and mq.TLO.AltAbility(spell).ID() then haveIt = true elseif
-        type == 'disc' and mq.TLO.Me.CombatAbility(spell).ID() then haveIt = true elseif
-        type == 'item' and mq.TLO.FindItem(spell).ID() then haveIt = true
+        type == 'aa' and mq.TLO.AltAbility(spell)() then haveIt = true elseif
+        type == 'disc' and mq.TLO.Me.CombatAbility(spell)() then haveIt = true elseif
+        type == 'item' and mq.TLO.FindItem(spell)() then haveIt = true
     end
     return haveIt
 end
@@ -135,7 +135,7 @@ function Cast.InRange(spell,target,type) --Do I add LoS here? Is there a spell i
         type == 'ability' and maxMelee and targetDistance < maxMelee then castRange = true elseif
         type == 'spell' and targetDistance <  mq.TLO.Me.Spell(spell).Range() then castRange = true elseif --Need to account for Rk? Or always strip? Will always stripping cause issues?
         type == 'aa' and targetDistance <  mq.TLO.AltAbility(spell).Range() then castRange = true elseif
-        type == 'disc' and targetDistance <  mq.TLO.Me.CombatAbility(spell).Range() then castRange = true elseif
+        type == 'disc' and targetDistance <  mq.TLO.Me.CombatAbility(mq.TLO.Me.CombatAbility(spell)()).Range() then castRange = true elseif
         type == 'item' and targetDistance <  mq.TLO.FindItem(spell).Range() then castRange = true
     end
     Write.Trace('CastRange %s',castRange)
@@ -196,7 +196,7 @@ function Cast.IsReady(spell,type)
     local ready
     local castreadytime
     if not type then type = 'spell' end
-    Write.Trace('Cast.IsReady spell %s type %s',spell,type)
+    Write.Debug('Cast.IsReady spell %s type %s',spell,type)
     type = type:lower()
     ready = (mq.TLO.Navigation.Velocity() < 1 or shortName == "BRD") --eventually account for things bards can't cast while moving
     if type == "spell" then
@@ -215,8 +215,8 @@ function Cast.IsReady(spell,type)
         castready = mq.TLO.Me.ItemReady(spell)()
         castreadytime = mq.TLO.FindItem(spell).Timer() or 10
     end
-    Write.Trace('castready %s ready %s time %s',castready, ready, castreadytime)
-    return castready and ready, castreadytime
+    Write.Debug('castready %s ready %s time %s',castready, ready, castreadytime)
+    return castready and ready, tonumber(castreadytime)
 end
 
 function Cast.MemSpell(spellname, slot)

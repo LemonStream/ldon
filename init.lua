@@ -16,13 +16,32 @@ local HealthWatchPct = 80
 local ManaWatchPct = 80
 local PullAbilityTable = {--disc, spell, aa, ability, item
     ['PAL'] = {spell = 'Cease', type = 'spell'},
-    ['WAR'] = {spell = 'Provoke', type = 'disc'},
-    ['SHD'] = {spell = 'Clinging Darkness', type = 'spell'},
+    ['WAR'] = {spell = 'Throw Stone', type = 'disc'},
+    ['SHD'] = {spell = 'Dooming Darkness', type = 'spell'},
 }
 --Stop editing
 
 local PullAbility = PullAbilityTable[mq.TLO.Me.Class.ShortName()].spell
 local PullType = PullAbilityTable[mq.TLO.Me.Class.ShortName()].type
+
+local classes = {
+    WAR = false, -- Warrior
+    CLR = true,  -- Cleric
+    PAL = true,  -- Paladin
+    RNG = true,  -- Ranger
+    SHD = true,  -- Shadow Knight
+    DRU = true,  -- Druid
+    MNK = false, -- Monk
+    BRD = true,  -- Bard
+    ROG = false, -- Rogue
+    SHM = true,  -- Shaman
+    NEC = true,  -- Necromancer
+    WIZ = true,  -- Wizard
+    MAG = true,  -- Magician
+    ENC = true,  -- Enchanter
+    BST = true,  -- Beastlord
+    BER = false  -- Berserker
+}
 
 local recruiters = {
     ['nro'] = { name = "Escon Quickbow" },
@@ -34,7 +53,7 @@ local recruiters = {
 
 arg = {...}
 if #arg > 0 then
-    skipToNum = tonumber(arg[1])
+    skipToNum = tonumber(arg[1]) -1
 end
 
 function GetAdventureStatus()
@@ -45,9 +64,9 @@ function GetAdventureStatus()
     end
 
     if OpenWindow("AdventureRequestWnd") then
-        if advWnd("AdvRqst_NPCText").Text():find('you are not currently assigned') then
+        if advWnd("AdvRqst_NPCText").Text() and advWnd("AdvRqst_NPCText").Text():find('you are not currently assigned') then
             GetTask()
-        elseif advWnd("AdvRqst_EnterTimeLeftLabel").Text():len() == 0 and advWnd("AdvRqst_CompleteTimeLeftLabel").Text():len() == 0 then
+        elseif advWnd("AdvRqst_EnterTimeLeftLabel").Text() and advWnd("AdvRqst_EnterTimeLeftLabel").Text():len() == 0 and advWnd("AdvRqst_CompleteTimeLeftLabel").Text():len() == 0 then
             GetTask()
         end
     else
@@ -329,12 +348,8 @@ function Adventure()
 end
 
 function PrepToKill()
-    local ready = false
-    while not ready do
-        if mq.TLO.Group.Injured(HealthWatchPct)() >0 or mq.TLO.Group.LowMana(ManaWatchPct)() > 0 then
-            mq.delay(5000)
-            Write.Debug('Someone needs to med %s %s',mq.TLO.Group.Injured(HealthWatchPct)(),mq.TLO.Group.LowMana(ManaWatchPct)())
-        else ready = true end
+    while not checkGroupThresholds() do
+        mq.delay(5000)
     end
     Write.Debug('Everyone is ready to kill')
 end
@@ -349,7 +364,7 @@ function PullMob()
         mq.delay(2000)
     end
     Write.Debug('pulling %s with %s spawn %s',mq.TLO.Target.DisplayName(),PullAbility,mq.TLO.NearestSpawn('1, npc range '..min..' '..max).DisplayName())
-    Cast.Cast(PullAbility,mq.TLO.Target.ID())
+    Cast.Cast(PullAbility,mq.TLO.Target.ID(),PullType)
 end
 
 function ExitInstance()
@@ -441,6 +456,39 @@ function allNavLoc(x,y,z,wait)
     if wait then waitToStop(wait) end
 end
 
+--- Function to check if all group members are above HP and Mana thresholds
+---@return boolean @Returns true if all members meet the thresholds, false otherwise
+function checkGroupThresholds()
+    local groupSize = mq.TLO.Group() or 0
+    local allAboveThreshold = true -- Assume all pass until proven otherwise
+
+    print("Checking group thresholds...")
+
+    -- Iterate through each group member (including yourself at index 0)
+    for i = 0, groupSize do
+        local member = mq.TLO.Group.Member(i)
+        if member() then
+            local name = member.Name() or "Unknown"
+            local classShort = member.Class.ShortName() or "UNK"
+            local hasMana = classes[classShort] or false
+            local hp
+            local mana
+            if i == 0 then hp = mq.TLO.Me.PctHPs() or 0 else hp = member.PctHPs() or 0 end
+            if i == 0 then mana = mq.TLO.Me.PctMana() else mana = hasMana and (member.PctMana() or 0) or "N/A" end
+            local hpCheck = hp >= HealthWatchPct
+            local manaCheck = not hasMana or (tonumber(mana) and mana >= ManaWatchPct)
+
+            --print(string.format("Member: %s (%s) | HP: %d%% | Mana: %s | Pass: %s", name, classShort, hp, mana, (hpCheck and manaCheck) and "Yes" or "No"))
+
+            -- If any member fails the check, set the flag to false
+            if not (hpCheck and manaCheck) then
+                allAboveThreshold = false
+            end
+        end
+    end
+
+    return allAboveThreshold
+end
 
 while run do
     GetAdventureStatus()--Includes GetTask, findtask
